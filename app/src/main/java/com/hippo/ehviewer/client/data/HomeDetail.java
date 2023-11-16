@@ -1,4 +1,4 @@
-package com.hippo.ehviewer.client;
+package com.hippo.ehviewer.client.data;
 
 public class HomeDetail {
 
@@ -77,7 +77,7 @@ public class HomeDetail {
     }
 
     public String getCurrentModerationPower() {
-        return withGp(currentModerationPower);
+        return Long.toString(currentModerationPower);
     }
 
     public void setCurrentModerationPower(long currentModerationPower) {

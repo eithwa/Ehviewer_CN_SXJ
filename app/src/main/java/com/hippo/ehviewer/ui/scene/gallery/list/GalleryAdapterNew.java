@@ -50,13 +50,17 @@ import com.hippo.yorozuya.ViewUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
 import android.content.Context;
+
 import com.hippo.ehviewer.spider.SpiderQueen;
+
 abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.GalleryHolder> {
 
     @IntDef({TYPE_LIST, TYPE_GRID})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Type {}
+    public @interface Type {
+    }
 
     public static final int TYPE_INVALID = -1;
     public static final int TYPE_LIST = 0;
@@ -76,7 +80,6 @@ abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.
     private OnThumbItemClickListener myOnThumbItemClickListener;
 
     private DownloadManager mDownloadManager;
-
 
 
     public GalleryAdapterNew(@NonNull LayoutInflater inflater, @NonNull Resources resources,
@@ -174,7 +177,7 @@ abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.
                 break;
         }
 
-        GalleryAdapterNew.GalleryHolder holder = new GalleryAdapterNew.GalleryHolder(mInflater.inflate(layoutId, parent, false),myOnThumbItemClickListener,viewType);
+        GalleryAdapterNew.GalleryHolder holder = new GalleryAdapterNew.GalleryHolder(mInflater.inflate(layoutId, parent, false), myOnThumbItemClickListener, viewType);
 
         if (viewType == TYPE_LIST) {
             ViewGroup.LayoutParams lp = holder.thumb.getLayoutParams();
@@ -192,7 +195,7 @@ abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.
     }
 
     @Nullable
-    public  GalleryInfo getDataAt(int position) {
+    public GalleryInfo getDataAt(int position) {
         return null;
     }
 
@@ -259,12 +262,12 @@ abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.
         ViewCompat.setTransitionName(holder.thumb, TransitionNameFactory.getThumbTransitionName(gi.gid));
     }
 
-    public void setThumbItemClickListener(OnThumbItemClickListener listener){
+    public void setThumbItemClickListener(OnThumbItemClickListener listener) {
         myOnThumbItemClickListener = listener;
     }
 
-    public interface OnThumbItemClickListener{
-        void onThumbItemClick(int position,View view,GalleryInfo gi);
+    public interface OnThumbItemClickListener {
+        void onThumbItemClick(int position, View view, GalleryInfo gi);
     }
 
     public class GalleryHolder extends RecyclerView.ViewHolder {
@@ -280,7 +283,7 @@ abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.
         public final ImageView favourite;
         public final ImageView downloaded;
 
-        public GalleryHolder(View itemView,final OnThumbItemClickListener onThumbItemClickListener,int mType) {
+        public GalleryHolder(View itemView, final OnThumbItemClickListener onThumbItemClickListener, int mType) {
             super(itemView);
             thumb = itemView.findViewById(R.id.thumb_new);
             title = itemView.findViewById(R.id.title);
@@ -292,11 +295,11 @@ abstract class GalleryAdapterNew extends RecyclerView.Adapter<GalleryAdapterNew.
             simpleLanguage = itemView.findViewById(R.id.simple_language);
             favourite = itemView.findViewById(R.id.favourited);
             downloaded = itemView.findViewById(R.id.downloaded);
-            if (mType == 0){
+            if (mType == 0) {
                 thumb.setOnClickListener(v -> {
-                    if (onThumbItemClickListener != null){
+                    if (onThumbItemClickListener != null) {
                         int position = getAdapterPosition();
-                        onThumbItemClickListener.onThumbItemClick(position,itemView,getDataAt(position));
+                        onThumbItemClickListener.onThumbItemClick(position, itemView, getDataAt(position));
                     }
                 });
             }
